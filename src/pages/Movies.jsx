@@ -1,23 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Loader } from 'components/Loader/Loader';
+import { getSearchMovies } from 'serviseAPI/api';
+import { MovieList } from 'components/MovieList';
 export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  /* const [query, setQuery] = useState(''); */
+  const [searchParam, setSearchParam] = useSearchParams();
+  const query = searchParam.get('query');
+
+  /* const onChange = e => setQuery(e.target.value); */
   useEffect(() => {
     async function getMovies() {
       setIsLoading(true);
       try {
-        const movies = await getTrendingMovies();
+        const movies = await getSearchMovies(query);
         setMovies(movies.results);
       } catch (error) {
       } finally {
         setIsLoading(false);
       }
     }
-    getMovies();
-  }, []);
+    if (query) {
+      getMovies();
+    }
+  }, [query]);
+  const onSubmit = e => {
+    e.preventDefault();
+    setSearchParam({ query: e.currentTarget.elements.query.value });
+
+    /* setQuery(''); */
+  };
+
   return (
     <main>
-      <form></form>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          /* onChange={onChange} */ name="query" /* value={query} */
+        />
+        <button type="submit">Search</button>
+      </form>
+      {isLoading && <Loader />}
+      <MovieList movies={movies} />
     </main>
   );
 };

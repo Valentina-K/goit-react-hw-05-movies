@@ -7,22 +7,22 @@ export const getTrendingMovies = async () => {
   return response.data;
 };
 
-export const getSearchMovies = async ({query}) => {
-  const response = await axios.get(`/search/movie?api_key$={KEY}&query=${query}`)
+export const getSearchMovies = async (query) => {
+  const response = await axios.get(`/search/movie?api_key=${KEY}&query=${encodeURIComponent(query).replaceAll('%20', '+')}&language=en-US`)
   return response.data;
 };
 
-export const getMovieById = async ({movieId}) => {
+export const getMovieById = async (movieId) => {
   const response = await axios.get(`/movie/${movieId}?api_key=${KEY}`)
   return response.data;
 };
 
-export const getCreditsMovie = async ({movieId}) => {
+export const getCreditsMovie = async (movieId) => {
   const response = await axios.get(`/movie/${movieId}/credits?api_key=${KEY}`)
   return response.data;
 };
 
-export const getReviewsMovie = async ({movieId}) => {
+export const getReviewsMovie = async (movieId) => {
   const response = await axios.get(`/movie/${movieId}/reviews?api_key=${KEY}`)
   return response.data;
 };

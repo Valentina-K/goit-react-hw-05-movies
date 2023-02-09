@@ -1,7 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { Movies } from '../pages/Movies';
 import { MoviesDetails } from 'pages/MovieDetails';
+import { Cast } from './Cast/Cast';
+import { Reviews } from './Reviews/Reviews';
 import { Container, Header, Link } from './App.styled';
 export const App = () => {
   return (
@@ -16,10 +18,13 @@ export const App = () => {
       </Header>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:movieId" element={<Navigate to="/movies" />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<MoviesDetails />} />
-        <Route path="/movies/:movieId/cast" element={<MoviesDetails />} />
-        <Route path="/movies/:movieId/reviews" element={<MoviesDetails />} />
+        <Route path="/movies/:movieId" element={<MoviesDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+        <Route path="*" element={<Home />} />
       </Routes>
     </Container>
   );
