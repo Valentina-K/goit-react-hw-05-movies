@@ -6,14 +6,11 @@ import { MovieCard } from 'components/MovieCard';
 import { getMovieById } from 'serviseAPI/api';
 import { Loader } from 'components/Loader/Loader';
 export const MoviesDetails = () => {
-  console.log('from MovieDetail');
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
-  console.log('location', location);
   const backLinkHref = location?.state?.from ?? '/movies';
-  console.log('backLinkHref', backLinkHref);
 
   useEffect(() => {
     setIsLoading(true);
@@ -21,7 +18,6 @@ export const MoviesDetails = () => {
       try {
         const movieDetails = await getMovieById(movieId);
         setMovie(movieDetails);
-        console.log(movieDetails);
       } catch (error) {
       } finally {
         setIsLoading(false);
@@ -34,7 +30,7 @@ export const MoviesDetails = () => {
     <main>
       {isLoading && <Loader />}
       <BackLink to={backLinkHref}>Go back</BackLink>
-      {movie !== null && <MovieCard movie={movie} />}
+      {movie && <MovieCard movie={movie} />}
       <p>Addition information</p>
       <ul>
         <li>

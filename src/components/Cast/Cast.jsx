@@ -3,16 +3,17 @@ import { useState, useEffect } from 'react';
 import { getCreditsMovie } from 'serviseAPI/api';
 export const Cast = () => {
   const { movieId } = useParams();
-  const [name, setName] = useState('');
-  const [character, setCharacter] = useState('');
-
+  const BASE_URL = 'http://image.tmdb.org/t/p/w200';
+  const [castList, setCastList] = useState('');
   useEffect(() => {
     async function getCredits() {
       try {
-        const { name, character } = await getCreditsMovie(movieId);
-        setName(name);
-        setCharacter(character);
-        console.log('name', name);
+        const { cast } = await getCreditsMovie(movieId);
+        const casts = cast.map(item => {
+          const { name, character, profile_path, id } = item;
+          return { name, character, profile_path, id };
+        });
+        setCastList(casts);
       } catch (error) {}
     }
     getCredits();
@@ -20,8 +21,15 @@ export const Cast = () => {
 
   return (
     <section>
-      <h2>{name}</h2>
-      <p>Character: {character}</p>
+      <ul>
+        {castList.map(cast => (
+          <li key={cast.id}>
+            <img src={`${BASE_URL}${cast.profile_path}`} alt={cast.name} />
+            <h2>{cast.name}</h2>
+            <p>Character: {cast.character}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
