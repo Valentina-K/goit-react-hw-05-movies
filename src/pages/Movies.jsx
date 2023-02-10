@@ -6,11 +6,9 @@ import { MovieList } from 'components/MovieList';
 export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  /* const [query, setQuery] = useState(''); */
   const [searchParam, setSearchParam] = useSearchParams();
   const query = searchParam.get('query');
 
-  /* const onChange = e => setQuery(e.target.value); */
   useEffect(() => {
     async function getMovies() {
       setIsLoading(true);
@@ -29,17 +27,12 @@ export const Movies = () => {
   const onSubmit = e => {
     e.preventDefault();
     setSearchParam({ query: e.currentTarget.elements.query.value });
-
-    /* setQuery(''); */
   };
 
   return (
     <main>
       <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          /* onChange={onChange} */ name="query" /* value={query} */
-        />
+        <input type="text" name="query" />
         <button type="submit">Search</button>
       </form>
       {isLoading && <Loader />}

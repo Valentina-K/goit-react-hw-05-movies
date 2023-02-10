@@ -44,3 +44,4 @@ export const MoviesDetails = () => {
     </main>
   );
 };
+//https://api.themoviedb.org/3/movie/157336?api_key={api_key}&append_to_response=videos,images
