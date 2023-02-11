@@ -22,7 +22,7 @@ export const Cast = () => {
   return (
     <section>
       <ul>
-        {castList ??
+        {castList &&
           castList.map(cast => (
             <li key={cast.id}>
               <img src={`${BASE_URL}${cast.profile_path}`} alt={cast.name} />

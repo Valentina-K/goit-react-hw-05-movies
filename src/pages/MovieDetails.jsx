@@ -31,7 +31,7 @@ export const MoviesDetails = () => {
       {isLoading && <Loader />}
       <BackLink to={backLinkHref}>Go back</BackLink>
       {movie && <MovieCard movie={movie} />}
-      <p>Addition information</p>
+      <h3>Addition information</h3>
       <ul>
         <li>
           <Link to="cast">Cast</Link>

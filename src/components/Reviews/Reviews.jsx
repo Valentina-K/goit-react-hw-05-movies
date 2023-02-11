@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getReviewsMovie } from 'serviseAPI/api';
 import { Loader } from 'components/Loader/Loader';
 export const Reviews = () => {
@@ -7,7 +7,7 @@ export const Reviews = () => {
   const [reviews, setReviews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     async function getReviews() {
       //array results
@@ -17,7 +17,6 @@ export const Reviews = () => {
           const { id, author, content } = item;
           return { id, author, content };
         });
-        console.log(reviewItems);
         setReviews(reviewItems);
       } catch (error) {
       } finally {
@@ -31,12 +30,13 @@ export const Reviews = () => {
     <section>
       <ul>
         {isLoading && <Loader />}
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h2>Author: {review.author}</h2>
-            <p>{review.content}</p>
-          </li>
-        ))}
+        {reviews &&
+          reviews.map(review => (
+            <li key={review.id}>
+              <h2>Author: {review.author}</h2>
+              <p>{review.content}</p>
+            </li>
+          ))}
       </ul>
     </section>
   );
