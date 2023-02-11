@@ -30,13 +30,16 @@ export const Reviews = () => {
     <section>
       <ul>
         {isLoading && <Loader />}
-        {reviews &&
+        {reviews?.length > 0 ? (
           reviews.map(review => (
             <li key={review.id}>
               <h2>Author: {review.author}</h2>
               <p>{review.content}</p>
             </li>
-          ))}
+          ))
+        ) : (
+          <p>No reviews yet</p>
+        )}
       </ul>
     </section>
   );
