@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Loader } from 'components/Loader/Loader';
 import { getSearchMovies } from 'serviseAPI/api';
-import { MovieList } from 'components/MovieList';
+import { MovieList } from 'components/MovieList/MovieList';
 export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

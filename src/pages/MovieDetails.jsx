@@ -1,8 +1,9 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { BackLink } from '../components/BackLink';
-import { MovieCard } from 'components/MovieCard';
+import { BackLink } from 'components/BackLink/BackLink';
+import { MovieCard } from 'components/MovieCard/MovieCard';
+import { MoreInfo } from 'components/MoreInfo/MoreInfo';
 import { getMovieById } from 'serviseAPI/api';
 import { Loader } from 'components/Loader/Loader';
 export const MoviesDetails = () => {
@@ -33,19 +34,8 @@ export const MoviesDetails = () => {
       <BackLink to={backLinkHref}>Go back</BackLink>
       {movie && <MovieCard movie={movie} />}
       <hr />
-      <h3>Addition information</h3>
-      <ul>
-        <li>
-          <Link to="cast" state={{ from: backLinkHref }}>
-            Cast
-          </Link>
-        </li>
-        <li>
-          <Link to="reviews" state={{ from: backLinkHref }}>
-            Reviews
-          </Link>
-        </li>
-      </ul>
+      <MoreInfo from={backLinkHref} />
+      <hr />
       <Outlet />
     </main>
   );

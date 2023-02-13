@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getCreditsMovie } from 'serviseAPI/api';
+import { Title, Profile, Text, ListItem } from './Cast.styled';
 export const Cast = () => {
   const { movieId } = useParams();
   const BASE_URL = 'http://image.tmdb.org/t/p/w200';
@@ -25,11 +26,14 @@ export const Cast = () => {
       <ul>
         {castList &&
           castList.map(cast => (
-            <li key={cast.id}>
-              <img src={`${BASE_URL}${cast.profile_path}`} alt={cast.name} />
-              <h2>{cast.name}</h2>
-              <p>Character: {cast.character}</p>
-            </li>
+            <ListItem key={cast.id}>
+              <Profile
+                src={`${BASE_URL}${cast.profile_path}`}
+                alt={cast.name}
+              />
+              <Title>{cast.name}</Title>
+              <Text>Character: {cast.character}</Text>
+            </ListItem>
           ))}
       </ul>
     </section>
