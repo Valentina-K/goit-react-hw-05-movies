@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { Home } from '../pages/Home';
 import { Movies } from '../pages/Movies';
 import { MoviesDetails } from 'pages/MovieDetails';
@@ -16,9 +17,9 @@ export const App = () => {
           <Link to="/movies">Movies</Link>
         </nav>
       </Header>
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/:movieId" element={<Navigate to="/movies" />} /> */}
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:movieId" element={<MoviesDetails />}>
           <Route path="cast" element={<Cast />} />

@@ -1,6 +1,6 @@
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { BackLink } from '../components/BackLink';
 import { MovieCard } from 'components/MovieCard';
 import { getMovieById } from 'serviseAPI/api';
@@ -19,6 +19,7 @@ export const MoviesDetails = () => {
         const movieDetails = await getMovieById(movieId);
         setMovie(movieDetails);
       } catch (error) {
+        toast.error("Info about this mivie don't find.");
       } finally {
         setIsLoading(false);
       }
@@ -31,13 +32,18 @@ export const MoviesDetails = () => {
       {isLoading && <Loader />}
       <BackLink to={backLinkHref}>Go back</BackLink>
       {movie && <MovieCard movie={movie} />}
+      <hr />
       <h3>Addition information</h3>
       <ul>
         <li>
-          <Link to="cast">Cast</Link>
+          <Link to="cast" state={{ from: backLinkHref }}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <Link to="reviews" state={{ from: backLinkHref }}>
+            Reviews
+          </Link>
         </li>
       </ul>
       <Outlet />

@@ -31,7 +31,7 @@ export const Reviews = () => {
             </li>
           ))
         ) : (
-          <p>No reviews yet</p>
+          <p>We don't have any reviews for this movie.</p>
         )}
       </ul>
     </section>
