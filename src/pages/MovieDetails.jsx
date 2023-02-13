@@ -1,4 +1,4 @@
-import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { BackLink } from 'components/BackLink/BackLink';
@@ -12,13 +12,27 @@ export const MoviesDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const backLinkHref = location?.state?.from ?? '/movies';
-
+  console.log('backLinkHref', backLinkHref);
   useEffect(() => {
     setIsLoading(true);
     async function getMovie() {
       try {
-        const movieDetails = await getMovieById(movieId);
-        setMovie(movieDetails);
+        const {
+          poster_path,
+          title,
+          release_date,
+          vote_average,
+          overview,
+          genres,
+        } = await getMovieById(movieId);
+        setMovie({
+          poster_path,
+          title,
+          release_date,
+          vote_average,
+          overview,
+          genres,
+        });
       } catch (error) {
         toast.error("Info about this mivie don't find.");
       } finally {
