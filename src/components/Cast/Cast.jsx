@@ -24,7 +24,7 @@ export const Cast = () => {
   return (
     <section>
       <ul>
-        {castList &&
+        {castList ? (
           castList.map(cast => (
             <ListItem key={cast.id}>
               <Profile
@@ -34,7 +34,10 @@ export const Cast = () => {
               <Title>{cast.name}</Title>
               <Text>Character: {cast.character}</Text>
             </ListItem>
-          ))}
+          ))
+        ) : (
+          <p>We don't have any casts for this movie.</p>
+        )}
       </ul>
     </section>
   );
